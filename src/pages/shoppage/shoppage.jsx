@@ -6,7 +6,6 @@ import collections from "./shop.data";
 function ShopPage(props) {
   return (
     <div className="shop-page">
-      Shop Page
       {collections.map(({ id, ...otherCollectionProps }) => (
         <CollectionPreview key={id} {...otherCollectionProps} />
       ))}
