@@ -7,7 +7,9 @@ import Header from "./components/header/header";
 import SignInAndSignUp from "./pages/signin-and-signup/signin-and-signup";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import { setCurrentUser } from "./redux/user/user.actions";
 
 function HatsPage() {
   return (
@@ -16,13 +18,7 @@ function HatsPage() {
     </div>
   );
 }
-function App() {
-  const [currentUser, setCurrentUser] = useState();
-
-  useEffect(() => {
-    console.log(currentUser, "user set");
-  }, [currentUser]);
-
+function App({ setCurrentUser }) {
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -46,7 +42,7 @@ function App() {
 
   return (
     <div>
-      <Header currentUser={currentUser} />
+      <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/shop" component={ShopPage} />
@@ -57,4 +53,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
