@@ -10,6 +10,8 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
+import { selectCurrentUser } from "./redux/user/user.selectors";
+import CheckoutPage from "./pages/checkout/checkout.component";
 
 function HatsPage() {
   return (
@@ -47,6 +49,7 @@ function App({ setCurrentUser, currentUser }) {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/shop" component={ShopPage} />
         <Route path="/shop/hats" component={HatsPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
         <Route
           exact
           path="/signin"
@@ -59,8 +62,8 @@ function App({ setCurrentUser, currentUser }) {
   );
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
