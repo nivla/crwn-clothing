@@ -13,13 +13,6 @@ import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import CheckoutPage from "./pages/checkout/checkout.component";
 
-function HatsPage() {
-  return (
-    <div>
-      <h1>Hats</h1>
-    </div>
-  );
-}
 function App({ setCurrentUser, currentUser }) {
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -40,15 +33,14 @@ function App({ setCurrentUser, currentUser }) {
     return () => {
       unsubscribeFromAuth();
     };
-  }, []);
+  }, [setCurrentUser]);
 
   return (
     <div>
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/shop" component={ShopPage} />
-        <Route path="/shop/hats" component={HatsPage} />
+        <Route path="/shop" component={ShopPage} />
         <Route exact path="/checkout" component={CheckoutPage} />
         <Route
           exact

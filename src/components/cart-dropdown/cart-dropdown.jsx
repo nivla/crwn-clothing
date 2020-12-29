@@ -33,6 +33,4 @@ const mapStateToProps = ({ cart: { cartItems } }) => ({
   cartItems,
 });
 
-const mapDispatchToProps = (dipsatch) => ({});
-
 export default withRouter(connect(mapStateToProps)(CartDropdown));
